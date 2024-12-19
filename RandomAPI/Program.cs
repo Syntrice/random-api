@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RandomAPI.Model;
 using RandomAPI.Options;
+using RandomAPI.Service;
 
 internal class Program
 {
@@ -33,6 +34,8 @@ internal class Program
         builder.Services.AddSwaggerGen();
         builder.Services.Configure<DatabaseOptions>(builder.Configuration.GetSection(DatabaseOptions.SectionName));
         builder.Services.AddDbContext<RandomDbContext>();
+        builder.Services.AddScoped<FruitsService>();
+
 
         return builder.Build();
     }

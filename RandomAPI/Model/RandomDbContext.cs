@@ -24,6 +24,7 @@ namespace RandomAPI.Model
 
             optionsBuilder.UseSeeding((context, _) =>
             {
+                // TODO error handling
                 List<Fruit>? seedFruits = JsonSerializer.Deserialize<List<Fruit>>(File.ReadAllText(_databaseOptions.SeedFruitsPath));
                 if (seedFruits is null) return;
 
@@ -34,6 +35,7 @@ namespace RandomAPI.Model
 
             optionsBuilder.UseAsyncSeeding(async (context, _, cancellationToken) =>
             {
+                // TODO error handling
                 List<Fruit>? seedFruits = JsonSerializer.Deserialize<List<Fruit>>(await File.ReadAllTextAsync(_databaseOptions.SeedFruitsPath));
                 if (seedFruits is null) return;
 
