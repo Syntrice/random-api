@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using RandomAPI.Model;
 using RandomAPI.Options;
 
@@ -6,6 +7,8 @@ internal class Program
     private static void Main(string[] args)
     {
         var app = Build(args);
+
+        MigrateDatabase(app);
 
         if (app.Environment.IsDevelopment())
         {
@@ -16,6 +19,7 @@ internal class Program
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();
+
 
         app.Run();
     }
@@ -31,5 +35,16 @@ internal class Program
         builder.Services.AddDbContext<RandomDbContext>();
 
         return builder.Build();
+    }
+
+    private static void MigrateDatabase(WebApplication app)
+    {
+        // contrived example, maybe change this later
+        using (var scope = app.Services.CreateScope())
+        {
+            var services = scope.ServiceProvider;
+            var context = services.GetRequiredService<RandomDbContext>();
+            context.Database.Migrate();
+        }
     }
 }

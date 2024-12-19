@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Controller\" />
+    <Folder Include="NewFolder\" />
     <Folder Include="Service\" />
   </ItemGroup>
 
